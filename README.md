@@ -14,8 +14,9 @@ store/get password by command to your clipboard
 - Copy to clipboard
 - Recent search priority
 
-- [] file Encryption
-- [] sync gist
+- [ ] file Encryption
+- [ ] sync gist
+- [ ] re find
 
 ## Example
 

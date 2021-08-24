@@ -1,3 +1,4 @@
 ipython
 fire
 pydantic
+pyperclip
