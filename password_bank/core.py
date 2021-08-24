@@ -15,6 +15,8 @@ class Account(BaseModel):
     def __repr__(self):
         return f"Account(account={self.account}, password={self.password}, keys={self.keys})"
 
+    def __str__(self):
+        return repr(self)
 
 store_file = os.path.join(os.path.dirname(__file__), "store.json")
 
@@ -37,7 +39,7 @@ class PasswordBank(BaseModel):
             return cls()
 
     def set_key(
-        self, fields: Tuple[str, ...], force: bool = False
+            self, fields: Tuple[str, ...], force: bool = False
     ) -> Union[str, Account]:
         if len(fields) == 2:
             account, password = fields
@@ -49,7 +51,7 @@ class PasswordBank(BaseModel):
 
         if key in self.keys:
             self._delete_account(self.keys[key], force=force)
-        print("fields", fields)
+
         account = Account(account=account, password=password)
         self.accounts.append(account)
 
@@ -97,7 +99,7 @@ class PasswordBank(BaseModel):
             return "delete"
 
     def _delete_account(self, account: Account, force: bool = False) -> bool:
-        if force or input("Are you sure to delete {}? (y/n) ".format(account)) == "y":
+        if force or input(f"Are you sure to delete {account}? (y/n) ") == "y":
             self.accounts.remove(account)
             for key in account.keys:
                 del self.keys[key]
