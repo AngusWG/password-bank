@@ -1,19 +1,8 @@
 # password-bank
 
---- 
+---
 
-store your password
-
-* [Black formatter](https://github.com/psf/black)
-
-> This project use black, please set `Continuation indent` = 4  
-> Pycharm - File - Settings - Editor - Code Style - Python - Tabs and Indents
-
-* [Flake8 lint](https://github.com/PyCQA/flake8)
-
-> Use flake8 to check your code style.
-
-* TODO
+store/get password by command to your clipboard
 
 ## Features
 
@@ -30,44 +19,57 @@ store your password
 
 ## Example
 
+* install 
+
+```bash
+> pip install git+https://github.com/AngusWG/password-bank.git
+```
+
 * store value
 
 ```bash
-pbank key account passwd
-> overwrite key-old-value?[y/n default:n]
-y
-key-value [id]
+> pbank key account passwd
+Are you sure to delete Account(account=account, password=passwd, keys=['key'])? (y/n) 
+> y
+Account(account=account, password=passwd, keys=['key'])
 ```
 
-* find value
+* get value to clipboard
 
 ```bash
-pbank key 
-> email(on your copyboard) passwd
+> pbank key
+Account(account=account, password=passwd, keys=['key'])
+# your clipboard is 'account'
 
-pbank email 
-> passwd(on your copyboard) (by last search)
+> pbank account 
+Account(account=account, password=passwd, keys=['key'])
+# your clipboard is 'account'
 ```
 
-* find key
+* find
 
 ```bash
-pbank find value
+> pbank key # or pbank account
+Account(account=account, password=passwd, keys=['key'])
 
-1 date key email passwd
-2 date key email passwd
-3 date key email passwd
-```
+> pbank find key 
+Account(account=account, password=passwd, keys=['key'])
+Account(account=key, password=passwd, keys=['key_2'])
 
-* login
-
-```bash
-pbank login
-github> token
-gist> key
-success
 ```
 
 ## Sync Config
 
 github token gist key
+
+---
+
+* [Black formatter](https://github.com/psf/black)
+
+> This project use black, please set `Continuation indent` = 4  
+> Pycharm - File - Settings - Editor - Code Style - Python - Tabs and Indents
+
+* [Flake8 lint](https://github.com/PyCQA/flake8)
+
+> Use flake8 to check your code style.
+
