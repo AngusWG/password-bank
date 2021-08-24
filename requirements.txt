@@ -1,0 +1,3 @@
+ipython
+fire
+pydantic
