@@ -34,7 +34,26 @@ def save_wrapper(func: Callable) -> Any:
 @save_wrapper
 def main(*fields: str, force: bool = False) -> Any:
     """
-    Todo
+    value_bank is use to store/get value by keys to your clipboard
+
+    Examples:
+        set: > vbank ubuntu root 123456
+             V(main_key=root, value=123456, ex_keys=['ubuntu'])
+
+        get: > vbank ubuntu
+             V(main_key=root, value=123456, ex_keys=['ubuntu'])
+             # your clipboard is root
+
+        get: > vbank root
+             V(main_key=root, value=123456, ex_keys=['ubuntu'])
+             # your clipboard is 123456
+
+        del: > vbank del ubuntu # or vbank del root
+             > Are you sure to delete V(main_key=root, value=123456, ex_keys=['ubuntu'])? (y/n) y
+
+        find:> vbank find ubuntu
+             V(main_key=root, value=111111, ex_keys=['win'])
+             V(main_key=root, value=123123, ex_keys=['centos'])
     """
     if len(fields) == 0:
         return main.__doc__
@@ -47,6 +66,9 @@ def main(*fields: str, force: bool = False) -> Any:
 
     elif key == "find":
         return bank.find(fields[1])
+
+    elif key == "clean":
+        return bank.clean()
 
     if len(fields) == 1:
         return bank.get(key)

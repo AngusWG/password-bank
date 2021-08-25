@@ -56,9 +56,9 @@ class TestValue_bank:
         # asset
         res = main("sentry")
         assert "sentry" in res.keys
-        assert res.account == "user_2"
+        assert res.main_key == "user_2"
         res = main("user_3")
-        assert res.account == "user_3"
+        assert res.main_key == "user_3"
         # find
         res = main("find", "user_1")
         assert len(res) == 2
