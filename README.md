@@ -1,69 +1,8 @@
-# password-bank
+# value-bank
 
----
+--- 
 
-store/get password by command to your clipboard
-
-## Features
-
----
-
-- set account
-- link key
-- delete key
-- Copy to clipboard
-- Recent search priority
-
-- [ ] file Encryption
-- [ ] sync gist
-- [ ] re find
-
-## Example
-
-* install 
-
-```bash
-> pip install git+https://github.com/AngusWG/password-bank.git
-```
-
-* store value
-
-```bash
-> pbank key account passwd
-Are you sure to delete Account(account=account, password=passwd, keys=['key'])? (y/n) 
-> y
-Account(account=account, password=passwd, keys=['key'])
-```
-
-* get value to clipboard
-
-```bash
-> pbank key
-Account(account=account, password=passwd, keys=['key'])
-# your clipboard is 'account'
-
-> pbank account 
-Account(account=account, password=passwd, keys=['key'])
-# your clipboard is 'passwd'
-```
-
-* find
-
-```bash
-> pbank key # or pbank account
-Account(account=account, password=passwd, keys=['key'])
-
-> pbank find key 
-Account(account=account, password=passwd, keys=['key'])
-Account(account=key, password=passwd, keys=['key_2'])
-
-```
-
-## Sync Config
-
-github token gist key
-
----
+store/get value by command to your clipboard
 
 * [Black formatter](https://github.com/psf/black)
 
@@ -74,3 +13,10 @@ github token gist key
 
 > Use flake8 to check your code style.
 
+* TODO
+
+## Features
+
+---
+
+* TODO

@@ -50,28 +50,28 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr *_coverage_report
 
 format: ## format python code
-	black password_bank tests
-	isort password_bank tests --profile black
+	black value_bank tests
+	isort value_bank tests --profile black
 
 lint: ## check style with flake8
-	flake8 password_bank tests
-	black password_bank tests --check
-	isort password_bank tests --check-only --profile black
+	flake8 value_bank tests
+	black value_bank tests --check
+	isort value_bank tests --check-only --profile black
 
 test: ## run tests quickly with the default Python
 	pytest
 
 coverage: ## check code coverage quickly with the default Python
-	coverage run --source password_bank -m pytest
+	coverage run --source value_bank -m pytest
 	coverage combine
 	coverage report -m
 	coverage html
 	# $(BROWSER) htmlcov/index.html
 
 docs: ## generate Sphinx HTML documentation, including API docs
-	rm -f docs/password_bank.rst
+	rm -f docs/value_bank.rst
 	rm -f docs/modules.rst
-	sphinx-apidoc -o docs/ password_bank
+	sphinx-apidoc -o docs/ value_bank
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 	$(BROWSER) docs/_build/html/index.html

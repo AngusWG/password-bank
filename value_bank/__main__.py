@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 # encoding: utf-8
-""" password_bank 's entry_points"""
+""" value_bank 's entry_points"""
 import functools
 from typing import Any, Callable
 
 import fire
 
-from password_bank import PasswordBank
+from value_bank.core import Bank
 
 
 def entry_point() -> None:  # pragma: no cover
@@ -18,7 +18,7 @@ def entry_point() -> None:  # pragma: no cover
     fire.Fire(main)
 
 
-bank: PasswordBank = PasswordBank.read()
+bank: Bank = Bank.read()
 
 
 def save_wrapper(func: Callable) -> Any:
@@ -33,6 +33,11 @@ def save_wrapper(func: Callable) -> Any:
 
 @save_wrapper
 def main(*fields: str, force: bool = False) -> Any:
+    """
+    Todo
+    """
+    if len(fields) == 0:
+        return main.__doc__
     key = fields[0]
     if key == "version":
         return version()
@@ -51,9 +56,9 @@ def main(*fields: str, force: bool = False) -> Any:
 
 def version() -> str:
     """显示当前版本"""
-    import password_bank
+    import value_bank
 
-    return password_bank.__version__
+    return value_bank.__version__
 
 
 if __name__ == "__main__":

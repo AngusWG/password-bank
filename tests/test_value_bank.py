@@ -2,16 +2,25 @@
 # encoding: utf-8
 
 """
-test_password_bank
+test_value_bank
 ----------------------------------
 
-Tests for `password_bank` module.
+Tests for `value_bank` module.
 """
+import pytest
 
-import password_bank
+
+@pytest.fixture
+def response():
+    """Sample pytest fixture.
+
+    See more at: http://doc.pytest.org/en/latest/fixture.html
+    """
+    # import requests
+    # return requests.get("https://github.com/audreyr/cookiecutter-pypackage")
 
 
-class TestPassword_bank:
+class TestValue_bank:
     @classmethod
     def setup_class(cls):
         pass
@@ -26,16 +35,8 @@ class TestPassword_bank:
     def teardown_method(self):
         pass
 
-    def test_something(self, benchmark):
-        assert password_bank.__version__
-        from password_bank import __main__
-
-        # assert cost time
-        benchmark(__main__.version)
-        assert benchmark.stats.stats.max < 0.01
-
-    def test_p_bank(self):
-        from password_bank.__main__ import main
+    def test_bank(self):
+        from value_bank.__main__ import main
 
         default = [
             ("192.168.0.122", "user_1", "passwd2"),

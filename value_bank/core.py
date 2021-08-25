@@ -18,10 +18,11 @@ class Account(BaseModel):
     def __str__(self):
         return repr(self)
 
+
 store_file = os.path.join(os.path.dirname(__file__), "store.json")
 
 
-class PasswordBank(BaseModel):
+class Bank(BaseModel):
     accounts: List[Account] = list()
     keys: Dict[str, Account] = dict()
     last: Optional[Account] = None
@@ -32,14 +33,14 @@ class PasswordBank(BaseModel):
         return store_file
 
     @classmethod
-    def read(cls) -> "PasswordBank":
+    def read(cls) -> "Bank":
         if os.path.exists(store_file):
             return cls.parse_file(store_file)
         else:
             return cls()
 
     def set_key(
-            self, fields: Tuple[str, ...], force: bool = False
+        self, fields: Tuple[str, ...], force: bool = False
     ) -> Union[str, Account]:
         if len(fields) == 2:
             account, password = fields
