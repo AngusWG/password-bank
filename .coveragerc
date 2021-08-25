@@ -1,9 +1,9 @@
 [html]
-directory =  password_bank_test_coverage_report
-title =  password_bank_frog_coverage_report
+directory =  value_bank_test_coverage_report
+title =  value_bank_frog_coverage_report
 
 [run]
-source =  password_bank
+source =  value_bank
 concurrency = multiprocessing
 
 [report]

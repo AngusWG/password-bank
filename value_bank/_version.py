@@ -41,8 +41,8 @@ def get_config():
     cfg.VCS = "git"
     cfg.style = "pep440"
     cfg.tag_prefix = ""
-    cfg.parentdir_prefix = "password_bank-"
-    cfg.versionfile_source = "password_bank/_version.py"
+    cfg.parentdir_prefix = "value_bank-"
+    cfg.versionfile_source = "value_bank/_version.py"
     cfg.verbose = False
     return cfg
 

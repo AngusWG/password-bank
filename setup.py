@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # encoding: utf-8
-"""A setuptools based setup module for password_bank"""
+"""A setuptools based setup module for value_bank"""
 
 from codecs import open
 from os import path
@@ -24,19 +24,19 @@ with open(path.join(here, "requirements_dev.txt"), encoding="utf-8") as requirem
 
 ext_modules = []
 setup(
-    name="password_bank",
+    name="value_bank",
     version=versioneer.get_version(),
     cmdclass=versioneer.get_cmdclass(),
-    description="store your password",
+    description="store/get value by command to your clipboard",
     long_description=readme + "\n\n" + history,
     author="AngusWG",
-    author_email="z740713651@outlook.com",
-    url="https://github.com/AngusWG/password-bank",
-    packages=find_packages(include=["password_bank", "password_bank.*"]),
+    author_email="z740713651@outlokk.com",
+    url="https://github.com/AngusWG/value-bank",
+    packages=find_packages(include=["value_bank", "value_bank.*"]),
     entry_points={
         "console_scripts": [
-            "password_bank=password_bank.__main__:entry_point",
-            "pbank=password_bank.__main__:entry_point",
+            "value_bank=value_bank.__main__:entry_point",
+            "vbank=value_bank.__main__:entry_point",
         ],
     },
     include_package_data=True,
@@ -55,5 +55,5 @@ setup(
     ],
     extras_require={"dev_require": requirements + "\n" + requirements_dev},
     ext_modules=ext_modules,
-    keywords="password_bank",
+    keywords="value_bank",
 )

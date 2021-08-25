@@ -1,12 +1,10 @@
-# password-bank
+# value-bank
 
----
+--- 
 
-store/get password by command to your clipboard
+store/get value by command to your clipboard
 
 ## Features
-
----
 
 - set account
 - link key
@@ -14,53 +12,62 @@ store/get password by command to your clipboard
 - Copy to clipboard
 - Recent search priority
 
-- [] file Encryption
-- [] sync gist
+- [ ] file Encryption
+- [ ] sync gist
+- [ ] re find
+
+---
 
 ## Example
 
 * install 
 
 ```bash
-> pip install git+https://github.com/AngusWG/password-bank.git
+> pip install git+https://github.com/AngusWG/value-bank.git
 ```
 
 * store value
 
 ```bash
-> pbank key account passwd
-Are you sure to delete Account(account=account, password=passwd, keys=['key'])? (y/n) 
-> y
-Account(account=account, password=passwd, keys=['key'])
+vbank ubuntu root 123456
+V(main_key=root, value=123456, ex_keys=['ubuntu'])
 ```
 
 * get value to clipboard
 
 ```bash
-> pbank key
-Account(account=account, password=passwd, keys=['key'])
-# your clipboard is 'account'
+vbank ubuntu
+V(main_key=root, value=123456, ex_keys=['ubuntu'])
+# your clipboard is 'root'
 
-> pbank account 
-Account(account=account, password=passwd, keys=['key'])
-# your clipboard is 'account'
+
+vbank root
+V(main_key=root, value=123456, ex_keys=['ubuntu'])
+# your clipboard is '123456' . Priority last record
+```
+
+* delete
+
+```bash
+vbank del ubuntu # or vbank del root
+Are you sure to delete V(main_key=root, value=123456, ex_keys=['ubuntu'])? (y/n) y
+vbank del
+# None
 ```
 
 * find
 
 ```bash
-> pbank key # or pbank account
-Account(account=account, password=passwd, keys=['key'])
-
-> pbank find key 
-Account(account=account, password=passwd, keys=['key'])
-Account(account=key, password=passwd, keys=['key_2'])
-
+vbank find ubuntu
+V(main_key=root, value=111111, ex_keys=['win'])
+V(main_key=root, value=123123, ex_keys=['centos'])
 ```
 
 ## Sync Config
 
 github token gist key
+
+# todo
 
 ---
 
@@ -72,4 +79,4 @@ github token gist key
 * [Flake8 lint](https://github.com/PyCQA/flake8)
 
 > Use flake8 to check your code style.
-
+> 

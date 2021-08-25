@@ -107,4 +107,3 @@ ENV/
 
 *.c
 config.yaml
-store.json

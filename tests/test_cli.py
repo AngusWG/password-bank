@@ -3,7 +3,7 @@
 
 from fire import testutils
 
-from password_bank import __main__
+from value_bank import __main__
 
 
 class CoreTest(testutils.BaseTestCase):
