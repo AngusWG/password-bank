@@ -67,9 +67,10 @@ class CliHelper:
         Returns:
             gist_url
         """
-        if token is None:
-            return "make gist token at url: https://github.com/settings/tokens"
         self._conf.gist_token = token
+        if not token:
+            return "make gist token at url: https://github.com/settings/tokens"
+        return self._conf.gist_token
 
     def pin(self, password: str = None) -> bool:
         self._password = str(password)
