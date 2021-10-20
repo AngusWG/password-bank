@@ -1,44 +1,11 @@
 import datetime
 import os
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Dict, List, Optional, Union
 
 from prompt_toolkit.clipboard import pyperclip
 from pydantic import BaseModel
 
-from value_bank.config import Config
-
-store_file = os.path.join(os.path.expanduser("~"), ".v_bank_store.json")
-
-
-class Content:
-
-    def __init__(self):
-        self.conf = Config.read()
-        if self.conf.use_password:
-            self.password = str(input("input your v_bank pin"))
-        else:
-            self.password = None
-        self.conf.download(self.password)
-        self.bank: Bank = Bank.read()
-
-    def set_token(self, token):
-        self.conf.gist_token = token
-        store_context = self.bank.store()
-        gist_url = self.conf.update(store_context, self.password)
-        self.conf.store()
-        print(f"store in {gist_url}")
-
-    def use_password(self, password: str):
-        self.password = str(password)
-        self.conf.use_password = True
-        store_context = self.bank.store()
-        self.conf.update(store_context, self.password)
-        self.conf.store()
-
-    def __del__(self):
-        store_context = self.bank.store()
-        self.conf.update(store_context, self.password)
-        self.conf.store()
+from value_bank.encrypt_utils import decrypt, encrypt
 
 
 class V(BaseModel):
@@ -59,20 +26,26 @@ class Bank(BaseModel):
     keys: Dict[str, V] = dict()
     last: Optional[V] = None
 
-    def store(self) -> str:
+    def store(self, store_file: str, password: str) -> str:
         store_context = self.json(indent=4)
+        if password:
+            store_context = encrypt(password, store_context)
         with open(store_file, "w+", encoding="utf-8") as f:
             f.write(store_context)
         return store_context
 
     @classmethod
-    def read(cls) -> "Bank":
+    def read(cls, store_file: str, password: str) -> "Bank":
         if os.path.exists(store_file):
-            return cls.parse_file(store_file)
+            with open(store_file, "r", encoding="utf-8") as f:
+                context = f.read()
+            if password:
+                context = decrypt(password, context)
+            return cls.parse_raw(context.encode("utf-8"))
         else:
             return cls()
 
-    def set_key(self, fields: Tuple[str, ...], force: bool = False) -> Union[str, V]:
+    def set_key(self, fields: List[str], force: bool = False) -> Union[str, V]:
         if len(fields) == 2:
             main_key, value = fields
             key = None
@@ -144,6 +117,4 @@ class Bank(BaseModel):
             self.v_set.clear()
             self.keys.clear()
             self.last = None
-            with open(store_file, "w+", encoding="utf-8") as f:
-                f.write("{}")
-        return store_file
+        return "clean"

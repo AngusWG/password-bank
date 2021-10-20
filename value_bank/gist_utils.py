@@ -7,7 +7,7 @@
 import requests
 
 
-def upload_gists(auth, content="aaa2"):
+def upload_gists(auth: str, content: str = "No content") -> str:
     token = ("", auth)
     gists = requests.get("https://api.github.com/gists", auth=token).json()
     all_gists = {list(gist["files"].keys())[0]: gist["id"] for gist in gists}
@@ -37,10 +37,11 @@ def upload_gists(auth, content="aaa2"):
         url = requests.post(
             "https://api.github.com/gists", json=payload, auth=token
         ).json()["id"]
+        print("store in https://gist.github.com/" + url)
     return "https://gist.github.com/" + url
 
 
-def download_gists(auth):
+def download_gists(auth: str) -> str:
     token = ("", auth)
     gists = requests.get("https://api.github.com/gists", auth=token).json()
     all_gists = {list(gist["files"].keys())[0]: gist["id"] for gist in gists}
@@ -54,7 +55,7 @@ def download_gists(auth):
 
 
 def main():
-    auth = "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"
+    auth = "..."
     upload_gists(auth)
     print(download_gists(auth))
 
