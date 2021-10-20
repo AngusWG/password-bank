@@ -41,9 +41,9 @@ class Bank(BaseModel):
                 context = f.read()
             if password:
                 context = decrypt(password, context)
-            return cls.parse_raw(context.encode("utf-8"))
-        else:
-            return cls()
+            if context:
+                return cls.parse_raw(context.encode("utf-8"))
+        return cls()
 
     def set_key(self, fields: List[str], force: bool = False) -> Union[str, V]:
         if len(fields) == 2:

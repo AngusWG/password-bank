@@ -64,9 +64,9 @@ class CliHelper:
             return "make gist token at url: https://github.com/settings/tokens"
         self._conf.gist_token = token
 
-    def pin(self, password: str = None):
+    def pin(self, password: str = ""):
         self._password = str(password)
-        self._conf.use_password = True
+        self._conf.use_password = True if password else False
 
     def clean(self):
         self._bank.clean()
