@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# encoding: utf-8 
+# encoding: utf-8
 # @Time    : 2021/10/20 11:25
 # @author  : zza
 # @Email   : 740713651@qq.com
@@ -8,6 +8,7 @@ import os
 from typing import Optional
 
 from pydantic import BaseModel
+
 from value_bank.gist_utils import download_gists, upload_gists
 
 
@@ -27,18 +28,14 @@ class Config(BaseModel):
         else:
             return cls()
 
-    def set_token(self, token):
-        self.gist_token = token
-
-    def update_to_gist(self, content: str):
+    def update_to_gist(self, content: str) -> Optional[str]:
         if not self.gist_token:
             return
-        upload_gists(self.gist_token, content)
+        return upload_gists(self.gist_token, content)
 
-    def download_to_file(self, store_file: str):
+    def download_to_file(self, store_file: str) -> None:
         if not self.gist_token:
             return
         content = download_gists(self.gist_token)
         with open(store_file, "w+", encoding="utf-8") as f:
             f.write(content)
-        return content

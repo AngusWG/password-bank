@@ -11,6 +11,7 @@ def entry_point() -> None:  # pragma: no cover
     https://github.com/google/python-fire
     """
     from value_bank.cli_helper import CliHelper
+
     fire.core.Display = lambda lines, out: print(*lines, file=out)
     content = CliHelper()
     fire.Fire(content)

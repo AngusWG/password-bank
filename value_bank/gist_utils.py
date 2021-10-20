@@ -54,7 +54,7 @@ def download_gists(auth: str) -> str:
     return old_content
 
 
-def main():
+def main() -> str:
     auth = "..."
     upload_gists(auth)
     print(download_gists(auth))
