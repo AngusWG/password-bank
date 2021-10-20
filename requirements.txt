@@ -3,4 +3,4 @@ fire
 pydantic
 pyperclip
 requests
-pycryptodome
+cryptography
