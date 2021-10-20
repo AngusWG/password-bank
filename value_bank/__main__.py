@@ -6,7 +6,7 @@ from typing import Any, Callable
 
 import fire
 
-from value_bank.core import Bank
+from value_bank.core import Bank, Content
 
 
 def entry_point() -> None:  # pragma: no cover
@@ -18,14 +18,16 @@ def entry_point() -> None:  # pragma: no cover
     fire.Fire(main)
 
 
-bank: Bank = Bank.read()
+content = Content()
+bank: Bank = content.bank
 
 
 def save_wrapper(func: Callable) -> Any:
     @functools.wraps(func)
     def wrapper(*args, **kwargs) -> Any:
         res = func(*args, **kwargs)
-        bank.store()
+        global content
+        del content
         return res
 
     return wrapper
@@ -54,6 +56,8 @@ def main(*fields: str, force: bool = False) -> Any:
         find:> vbank find ubuntu
              V(main_key=root, value=111111, ex_keys=['win'])
              V(main_key=root, value=123123, ex_keys=['centos'])
+
+        gist: vbank gist token aaabbbcc
     """
     if len(fields) == 0:
         return main.__doc__
@@ -69,6 +73,12 @@ def main(*fields: str, force: bool = False) -> Any:
 
     elif key == "clean":
         return bank.clean()
+
+    elif key == "gist":
+        return content.conf.set_token(fields[1])
+
+    elif key == "pin":
+        return content.use_password(fields[1])
 
     if len(fields) == 1:
         return bank.get(key)

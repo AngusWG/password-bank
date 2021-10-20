@@ -5,8 +5,40 @@ from typing import Dict, List, Optional, Tuple, Union
 from prompt_toolkit.clipboard import pyperclip
 from pydantic import BaseModel
 
-# config_file = os.path.join(os.path.expanduser("~"), r".v_bank.config")
+from value_bank.config import Config
+
 store_file = os.path.join(os.path.expanduser("~"), ".v_bank_store.json")
+
+
+class Content:
+
+    def __init__(self):
+        self.conf = Config.read()
+        if self.conf.use_password:
+            self.password = str(input("input your v_bank pin"))
+        else:
+            self.password = None
+        self.conf.download(self.password)
+        self.bank: Bank = Bank.read()
+
+    def set_token(self, token):
+        self.conf.gist_token = token
+        store_context = self.bank.store()
+        gist_url = self.conf.update(store_context, self.password)
+        self.conf.store()
+        print(f"store in {gist_url}")
+
+    def use_password(self, password: str):
+        self.password = str(password)
+        self.conf.use_password = True
+        store_context = self.bank.store()
+        self.conf.update(store_context, self.password)
+        self.conf.store()
+
+    def __del__(self):
+        store_context = self.bank.store()
+        self.conf.update(store_context, self.password)
+        self.conf.store()
 
 
 class V(BaseModel):
@@ -28,9 +60,10 @@ class Bank(BaseModel):
     last: Optional[V] = None
 
     def store(self) -> str:
+        store_context = self.json(indent=4)
         with open(store_file, "w+", encoding="utf-8") as f:
-            f.write(self.json(indent=4))
-        return store_file
+            f.write(store_context)
+        return store_context
 
     @classmethod
     def read(cls) -> "Bank":
@@ -114,4 +147,3 @@ class Bank(BaseModel):
             with open(store_file, "w+", encoding="utf-8") as f:
                 f.write("{}")
         return store_file
-

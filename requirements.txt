@@ -2,3 +2,5 @@ ipython
 fire
 pydantic
 pyperclip
+requests
+pycryptodome
